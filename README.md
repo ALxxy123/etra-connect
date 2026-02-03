@@ -41,7 +41,7 @@ cd etra-connect
 # تثبيت المكتبات
 npm install
 
-# إنشاء ملف البيئة
+# إنشاء ملف البيئةه
 cp .env.example .env.local
 ```
 
