@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-cairo: 'Cairo', sans-serif;
+  
+  /* Modern Professional Color Palette */
+  --color-bg-dark: #0a0f1d;
+  --color-primary: #3b82f6; /* Blue-500 */
+  --color-accent: #8b5cf6;  /* Violet-500 */
+  
+  /* Refined Gradients */
+  --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  --gradient-dark: linear-gradient(180deg, #0a0f1d 0%, #111827 100%);
+  --gradient-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --gradient-bubble-me: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  
+  /* Professional Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-family: var(--font-cairo);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--color-bg-dark);
+  color: #f8fafc;
+  direction: rtl;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Polish */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.glass-strong {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Inputs */
+.input-glass {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: white;
+  transition: all 0.2s ease;
+}
+.input-glass:focus {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Chat Bubbles */
+.message-sent {
+  background: var(--gradient-bubble-me);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+.message-received {
+  background: rgba(51, 65, 85, 0.5);
+  color: #f1f5f9;
+  border-radius: 18px 18px 18px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Tab Bar */
+.tab-active {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+.tab-inactive {
+  color: #94a3b8;
+}
+
+/* Animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Utilities */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+.safe-top {
+  padding-top: env(safe-area-inset-top, 20px);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
