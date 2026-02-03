@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3004",
-    "build": "next build -p 3004",
+    "build": "next build",
     "start": "next start -p 3004",
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.0",
+    "next": "^14.2.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@supabase/supabase-js": "^2.39.0",
-    "@supabase/auth-helpers-nextjs": "^0.9.0",
+    "@supabase/ssr": "^0.5.0",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.344.0",
     "date-fns": "^3.3.0"
