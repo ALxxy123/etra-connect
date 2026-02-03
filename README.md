@@ -34,7 +34,7 @@
 ### 2. إعداد المشروع
 
 ```bash
-# استنساخ المشروع
+# استنساخ المشروعب
 git clone <your-repo>
 cd etra-connect
 
