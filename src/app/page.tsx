@@ -6,6 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Mail, Lock, Loader2, Sparkles, Shield, User } from 'lucide-react'
 import { supabase, isAllowedEmail } from '@/lib/supabase'
 
+// منع الـ prerendering في البناء
+export const dynamic = 'force-dynamic'
+
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')

@@ -32,6 +32,9 @@ import type { Message, Note, TabType, User as UserType } from '@/types'
 import { format } from 'date-fns'
 import { ar } from 'date-fns/locale'
 
+// منع الـ prerendering في البناء
+export const dynamic = 'force-dynamic'
+
 export default function DashboardPage() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<TabType>('chat')
