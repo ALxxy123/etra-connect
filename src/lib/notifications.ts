@@ -25,8 +25,6 @@ export const showNotification = (payload: NotificationPayload) => {
       icon: payload.icon || '/icon-192.png',
       badge: '/icon-192.png',
       tag: payload.data?.id || 'etra-connect',
-      renotify: true,
-      vibrate: [200, 100, 200],
     })
 
     notification.onclick = () => {
