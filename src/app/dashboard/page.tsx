@@ -510,7 +510,7 @@ export default function DashboardPage() {
       </div>
 
       {/* 3. Main Content */}
-      <main className="flex-1 overflow-hidden relative w-full max-w-2xl mx-auto rounded-t-[32px] md:rounded-[32px] bg-[#0f172a]">
+      <main className="flex-1 flex flex-col overflow-hidden relative w-full max-w-2xl mx-auto rounded-t-[32px] md:rounded-[32px] bg-[#0f172a]">
         <AnimatePresence mode="wait" initial={false}>
           {activeTab === 'chat' ? (
             <motion.div
@@ -518,7 +518,7 @@ export default function DashboardPage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="h-full flex flex-col"
+              className="flex-1 flex flex-col"
             >
               <div
                 ref={chatContainerRef}
@@ -624,75 +624,80 @@ export default function DashboardPage() {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* Input Area with Voice */}
-              <div className="p-4 bg-[#0f172a]/90 backdrop-blur-lg border-t border-white/5 safe-bottom">
-                {isRecording ? (
-                  <div className="flex items-center justify-between bg-red-500/20 p-3 rounded-[28px] border border-red-500/30">
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                      <span className="text-red-400 font-bold text-sm">جاري التسجيل... {formatDuration(recordingDuration)}</span>
-                    </div>
-                    <button
-                      onClick={stopRecording}
-                      className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-red-600 transition-all"
-                    >
-                      <Square className="w-5 h-5 fill-current" />
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={sendMessage} className="flex gap-2 items-center bg-[#1e293b] p-1.5 rounded-[28px] border border-slate-700/50 shadow-lg">
-                    {/* Hidden File Input */}
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileUpload}
-                      accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.zip"
-                      className="hidden"
-                    />
+              {/* Input Area - WhatsApp Style */}
+              <div className="p-2 bg-[#0f172a] safe-bottom flex items-end gap-2" dir="rtl">
 
-                    {/* Attachment Button */}
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={isUploading || isSending}
-                      className="w-[42px] h-[42px] rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-600/50 transition-all"
-                    >
-                      {isUploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Paperclip className="w-5 h-5" />}
-                    </button>
+                {/* 1. Main Input Container (Pill Shape) */}
+                <div className="flex-1 bg-[#1e293b] rounded-[24px] flex items-center min-h-[48px] px-1 border border-slate-700/30 shadow-sm relative">
 
+                  {/* Hidden File Input */}
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileUpload}
+                    accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.zip"
+                    className="hidden"
+                  />
+
+                  {/* Attachment Button */}
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploading || isSending}
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-200 transition-colors"
+                  >
+                    {isUploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Paperclip className="w-5 h-5 rotate-45" />}
+                  </button>
+
+                  <form onSubmit={sendMessage} className="flex-1 flex max-h-[120px]">
                     <input
                       type="text"
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      placeholder="اكتب رسالة..."
-                      className="flex-1 bg-transparent border-none text-white text-sm px-3 py-3 focus:ring-0 placeholder:text-slate-500"
+                      placeholder="رسالة"
+                      className="w-full bg-transparent border-none text-slate-100 text-[15px] px-2 py-3 focus:ring-0 placeholder:text-slate-500"
                       disabled={isSending}
                     />
-
-                    {/* Voice Button - يظهر إذا لم يكن هناك نص */}
-                    {!newMessage.trim() && (
-                      <button
-                        type="button"
-                        onClick={startRecording}
-                        disabled={isSending || isUploading}
-                        className="w-[46px] h-[46px] rounded-full flex items-center justify-center bg-indigo-600 text-white hover:bg-indigo-500 transition-all"
-                      >
-                        <Mic className="w-5 h-5" />
-                      </button>
-                    )}
-
-                    {/* Send Button - يظهر إذا كان هناك نص */}
-                    {newMessage.trim() && (
-                      <button
-                        type="submit"
-                        disabled={isSending}
-                        className="w-[46px] h-[46px] rounded-full flex items-center justify-center bg-blue-600 text-white shadow-lg shadow-blue-600/20 hover:scale-105 transition-all"
-                      >
-                        {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5 ltr:rotate-180" />}
-                      </button>
-                    )}
                   </form>
+                </div>
+
+                {/* 2. Action Button (Mic or Send) - Circular & Separate */}
+                <div className="flex-shrink-0 mb-[2px]">
+                  {newMessage.trim() ? (
+                    // Send Button
+                    <button
+                      onClick={sendMessage}
+                      disabled={isSending}
+                      className="w-[44px] h-[44px] rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-white shadow-lg transition-all transform active:scale-95"
+                    >
+                      <Send className="w-5 h-5 ml-0.5" />
+                    </button>
+                  ) : (
+                    // Mic Button (Voice)
+                    <button
+                      onMouseDown={startRecording}
+                      onMouseUp={stopRecording}
+                      onTouchStart={startRecording}
+                      onTouchEnd={stopRecording}
+                      className={`w-[44px] h-[44px] rounded-full flex items-center justify-center shadow-lg transition-all transform active:scale-95
+                          ${isRecording ? 'bg-red-500 animate-pulse text-white scale-110' : 'bg-[#1e293b] text-emerald-500 hover:bg-slate-700'}`}
+                    >
+                      <Mic className={`w-5 h-5 ${isRecording ? 'animate-bounce' : ''}`} />
+                    </button>
+                  )}
+                </div>
+
+                {/* Recording Overlay (if recording) - Optional: could be overlaid or inline */}
+                {isRecording && (
+                  <div className="absolute inset-x-2 bottom-2 bg-[#1e293b] rounded-[24px] h-[48px] flex items-center px-4 justify-between animate-in fade-in slide-in-from-bottom-2 z-20 border border-red-500/30">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
+                      <span className="text-red-400 font-medium text-sm tabular-nums">{formatDuration(recordingDuration)}</span>
+                    </div>
+                    <span className="text-slate-400 text-xs animate-pulse">اسحب للإلغاء</span>
+                  </div>
                 )}
+
               </div>
             </motion.div>
           ) : (
