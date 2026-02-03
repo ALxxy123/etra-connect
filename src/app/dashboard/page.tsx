@@ -211,7 +211,6 @@ export default function DashboardPage() {
     const { error } = await supabase.from('messages').insert({
       sender_id: user.id,
       content,
-      message_type: 'text',
       is_read: false
     })
     if (error) {
